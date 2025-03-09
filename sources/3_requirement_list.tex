@@ -1,0 +1,83 @@
+\section{Project Overview}
+The Blockchain Transaction Information Visualization System is a web-based platform designed to transform complex blockchain transaction data into intuitive, interactive visualizations. At its core, the system allows users to input wallet addresses and explore transaction relationships through an interactive directed graph, where nodes represent wallets and edges represent transactions between them. The platform combines frontend visualization capabilities with backend graph database architecture to provide real-time exploration of transaction networks. Users can navigate through transaction paths by clicking nodes to explore next/previous hops, while accessing detailed transaction information in tabular format. The system's primary value proposition is making blockchain transaction patterns and relationships easily discoverable and understandable for both technical and non-technical users. The project objectives are further described in Table \ref{tab:objectives}.
+
+\section{Core Functionalities}
+The Blockchain Transaction Information Visualization System is built around five essential functionalities that work together to provide users with a comprehensive blockchain data exploration experience. At its core, the system enables users to search and analyze wallet addresses through an intuitive interface, visualize transaction relationships through interactive graphs, explore connected addresses dynamically, access detailed transaction information, and leverage efficient data storage through a graph database. 
+
+\subsection{Wallet Address Search and Information Retrieval}
+\begin{itemize}
+    \item Implementation of a search interface that accepts wallet addresses
+    \item Display of fundamental wallet information    
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{10pt}
+\begin{threeparttable}
+\caption{Project Objectives}
+\label{tab:objectives}
+\begin{tabular}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Category} & \textbf{Objective} \\
+\midrule
+User Interface & Create an accessible and intuitive interface for blockchain transaction information exploration with interactive graph navigation capabilities for connected addresses. \\
+\addlinespace
+User Experience & Implement graph database organization to facilitate rapid searches, intuitive data exploration, and enhanced visual representations of financial relationships and patterns. \\
+\addlinespace
+Visualization & Develop interactive visualization mechanisms for transaction networks in both graph-based and tabular representations. \\
+\addlinespace
+Data Exploration \& Analysis & Provide comprehensive transaction information and enable efficient analysis of blockchain transaction patterns and network behaviors. \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\small
+\item Note: These objectives guide the development of the Blockchain Transaction Information Visualization System.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Transaction Graph Visualization}
+\begin{itemize}
+    \item Development of an interactive directed graph visualization where:
+    \begin{itemize}
+        \item Nodes represent individual wallet addresses
+        \item Edges indicate transactions between addresses
+        \item Edge directionality shows the flow of transactions
+        \item Visual attributes (size, color) represent transaction volumes or frequency
+    \end{itemize}
+\end{itemize}
+
+\subsection{Interactive Exploration}
+\begin{itemize}
+    \item Implementation of node interaction features:
+    \begin{itemize}
+        \item Click functionality to explore connected addresses
+        \item Navigation through transaction paths (next/previous hops)
+        \item Zoom and pan capabilities for graph exploration
+        \item Filtering options for transaction types and time periods
+    \end{itemize}
+\end{itemize}
+
+\subsection{Transaction Information Display}
+\begin{itemize}
+    \item Creation of a detailed transaction information panel:
+    \begin{itemize}
+        \item Tabular format for transaction details
+        \item Sorting and filtering capabilities
+        \item Time-stamped transaction history
+        \item Transaction status indicators
+    \end{itemize}
+\end{itemize}
+
+\subsection{Graph Database Integration}
+\begin{itemize}
+    \item Implementation of a graph database system:
+    \begin{itemize}
+        \item Efficient data storage and retrieval mechanisms
+        \item Optimized query performance for large transaction sets
+        \item Real-time data updates and synchronization
+        \item Robust data integrity measures
+    \end{itemize}
+\end{itemize}
+These functionalities are designed to work seamlessly together, creating a fluid user experience where users can easily move from searching a wallet address to exploring its transaction network, and diving deep into specific transaction details.

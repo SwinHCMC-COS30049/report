@@ -1,0 +1,130 @@
+\section{Front-end Deployment Guide}
+This is a \href{https://nextjs.org/}{\colorbox{yellow!30}{\texttt{Next.js }}}project bootstrapped with\href{https://nextjs.org/docs/app/api-reference/cli/create-next-app}{\colorbox{yellow!30}{\texttt{create-next-app}}} 
+\subsection*{Getting Started}
+\begin{itemize}
+
+  \item First, install the dependencies:
+  \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+pnpm install
+\end{minted}
+\end{tcolorbox}
+  \item Run the development server:
+  \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+pnpm run dev
+\end{minted}
+\end{tcolorbox}
+   \end{itemize}
+\subsection*{Note:}
+
+The .env with the links to the backend is already included in the zip file (submission),  so it should connect.
+
+The backend may take \textasciitilde{}1 minute to boot up from sleep since we are on the Free tier of the hosting platform. As such, please wait for the results (especially when fetching wallets).
+\newpage
+\section{Back-end Deployment Guide}
+Fast, scalable NestJS backend for a cryptocurrency exchange platform with EdgeDB and Neo4j integration.
+\subsection*{Prerequisites}
+\begin{itemize}
+    \item Node.js 18+ and pnpm
+    \item EdgeDB 5.x
+    \item Neo4j 5.x (optional, for advanced relationship queries)
+    \item Docker and Docker Compose (recommended for local development)
+\end{itemize}
+\subsection*{Quick Start}
+\subsubsection*{Installation}
+ \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+# Install dependencies
+pnpm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+\end{minted}
+\end{tcolorbox}
+\subsubsection*{Database Setup}
+ \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+# Initialize EdgeDB
+edgedb project init
+
+# Run migrations
+pnpm run db:migrate
+
+# Generate TypeScript interfaces
+pnpm run db:generate
+
+# Seed the database (optional)
+pnpm run db:seed
+\end{minted}
+\end{tcolorbox}
+\subsubsection*{Running the Application}
+ \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+# Development mode with hot reload
+pnpm run dev
+
+# Production build
+pnpm run build
+pnpm run start
+\end{minted}
+\end{tcolorbox}
+\subsection*{API Documentation}
+Once the application is running, access the Swagger documentation at:
+\begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+http://localhost:3000/api/docs
+\end{minted}
+\end{tcolorbox}
+\subsection*{Common Issues}
+\begin{itemize}
+    \item \textbf{EdgeDB Connection Error:} Ensure EdgeDB is running and credentials in \colorbox{yellow!30}{\texttt{.env}} are correct
+    \item \textbf{Hot Reload Not Working:} Check that the \colorbox{yellow!30}{\texttt{webpack-hmr.config.js}} is properly configured
+    \item \textbf{Database Migration Fails:} Run \colorbox{yellow!30}{\texttt{edgedb migration create --dev-mode}} to debug migration issues
+\end{itemize}
+\subsection*{Project Structure}
+\begin{tcolorbox}[width=\textwidth, boxrule=0pt, colback=gray!5, colframe=gray!5, arc=0mm, outer arc=0mm]
+\begin{lstlisting}[numbers=none]
+src/
+|-- common/      # Shared utilities, guards, and decorators
+|-- config/      # Application configuration
+|-- modules/     # Feature modules (auth, users, etc.)
+|   |-- auth/    # Authentication and authorization
+|   |-- users/   # User management
+|   |-- wallets/ # Cryptocurrency wallets
+|   |-- ...
+|-- main.ts      # Application entry point
+\end{lstlisting}
+\end{tcolorbox}
+\subsection*{Development}
+ \begin{tcolorbox}[width=\textwidth, boxrule=0.5pt, colback=gray!5, colframe=gray!50]
+\begin{minted}[
+    breaklines=true,
+    breakanywhere=true,
+]{bash}
+# Linting
+pnpm run lint
+
+# Formatting
+pnpm run format
+\end{minted}
+\end{tcolorbox}

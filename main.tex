@@ -1,0 +1,286 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Class and Basic Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt, a4paper]{report}
+
+% Encoding and Language
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{pgf-umlsd} 
+\usepackage{dirtree}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page Layout and Geometry
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[
+  left=1.4in,
+  right=1.4in,
+  top=0.5in,
+  bottom=0.5in,
+  headheight=26pt,
+  includeheadfoot
+]{geometry}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematics, Graphics, and Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}       % High-quality tables
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{caption}
+\usepackage[flushleft]{threeparttable}
+\usepackage{tikz}
+\usepackage{pgf-umlsd}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code Listings and MATLAB Prettifier
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage[framed,numbered]{matlab-prettifier}
+\usepackage{minted}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperlinks, Dates, and Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperlinks, Dates, and Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\definecolor{blue1}{RGB}{0,73,114}
+\definecolor{blue2}{RGB}{89,128,183}
+
+\usepackage{sectsty} % provides \chapterfont, \sectionfont, etc.
+\chapterfont{\color{blue1}}    % sets chapter titles to blue1
+\sectionfont{\color{blue2}}    % sets section titles to blue2
+\subsectionfont{\color{blue2}}
+\subsubsectionfont{\color{blue2}}
+
+\usepackage{hyperref} % load hyperref without extra color options
+% Load hyperref with specific settings
+\hypersetup{
+    colorlinks=true,       % true: colored links instead of boxes
+    linkcolor=black,       % color of internal links in ToC (same as text color for invisibility)
+    citecolor=red,         % color of citation links
+    filecolor=magenta,     % color of file links
+    urlcolor=black,         % color of external links
+    linktoc=all,           % 'all' will create links for everything in toc
+    pdfborderstyle={/S/U/W 0} % no visible borders
+}
+
+% Customize Table of Contents, List of Figures, and List of Tables titles
+\usepackage{tocloft}
+
+% Style for "Contents" title
+\renewcommand{\cfttoctitlefont}{\huge\bfseries\color{blue1}}
+
+% Style for "List of Figures" title
+\renewcommand{\cftloftitlefont}{\huge\bfseries\color{blue1}}
+
+% Style for "List of Tables" title
+\renewcommand{\cftlottitlefont}{\huge\bfseries\color{blue1}}
+
+% If you're not using the tocloft package already, an alternative approach is:
+\makeatletter
+\renewcommand\tableofcontents{%
+    \section*{\textcolor{blue1}{\contentsname}}%
+    \@starttoc{toc}%
+}
+\renewcommand\listoffigures{%
+    \section*{\textcolor{blue1}{\listfigurename}}%
+    \@starttoc{lof}%
+}
+\renewcommand\listoftables{%
+    \section*{\textcolor{blue1}{\listtablename}}%
+    \@starttoc{lot}%
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional Formatting Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}       % Custom section spacing
+\usepackage{titling}        % Custom title formatting
+\usepackage{fancyhdr}       % Headers and footers
+\usepackage{tocloft}        % Table of contents formatting
+\usepackage{setspace}       % Line spacing
+\usepackage{enumitem}       % Customized lists
+\usepackage{indentfirst}    % Indent first paragraph of sections
+\usepackage{float}          % Improved float control
+\usepackage{comment}        % For commenting out blocks of text
+\usepackage{nomencl}        % For nomenclature (if needed)
+\usepackage{lipsum}         % Dummy text (for testing)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Enhanced Spacing Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{parskip} % Better paragraph spacing
+\setlength{\parskip}{1.5ex plus 0.5ex minus 0.2ex}  % Space between paragraphs
+\setlength{\parsep}{0.5ex plus 0.2ex minus 0.1ex}    % Space within paragraphs
+\setlength{\itemsep}{1ex plus 0.5ex minus 0.2ex}     % Space between list items
+\setlength{\topsep}{2ex plus 0.5ex minus 0.2ex}       % Space above/below lists
+\setlength{\partopsep}{1ex plus 0.5ex minus 0.2ex}    % Extra space around lists
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section Spacing Customization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Listings Settings (MATLAB)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstset{
+  language=Matlab,
+  style=Matlab-editor,
+  basicstyle=\normalsize\mlttfamily,
+  numbers=left,
+  numberstyle=\scriptsize\color{black},
+  numbersep=0.5cm,
+  lineskip=2pt  % Space between lines in listings
+}
+
+% Custom Enumerate Environment for Steps
+\newlist{steps}{enumerate}{1}
+\setlist[steps,1]{leftmargin=1.5cm, label=Step \arabic*:, itemsep=1ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Header & Footer Configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \pagestyle{fancy}
+% \fancyhf{}  % Clear default header/footer
+
+% Header: Use the document title
+\lhead{\thetitle}
+\setlength{\headheight}{16pt}
+
+% Footer: Display page number and reference to the last main page
+\cfoot{Page \thepage\ of \pageref{endOfDoc}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\rmdefault}{ptm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title and Document Information
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{The Blockchain Transaction Information Visualization System}
+\makeatletter
+\let\Title\@title
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%-------------------------------
+% Front Page
+%-------------------------------
+\input{sources/0_frontpage.tex}
+\newpage
+
+%-------------------------------
+% Table of Contents (not counted in page numbering)
+%-------------------------------
+\tableofcontents
+
+%-------------------------------
+% Lists (Figures and Tables)
+%-------------------------------
+% \pagenumbering{arabic}
+% Setup for JSON code listings
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0.0,0.6,0.0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+
+\lstdefinestyle{json}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    stringstyle=\color{codegreen},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=2,
+    basicstyle=\ttfamily\small,
+    frame=single
+}
+
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+
+\newpage
+
+%-------------------------------
+% Main Content
+%-------------------------------
+\section*{Team Introduction} \label{ch2}
+\input{sources/2_team}
+\newpage
+
+\chapter{Introduction} \label{ch1}
+\input{sources/1_introduction.tex}
+
+\chapter{Project Requirement List and Description} \label{ch3}
+\input{sources/3_requirement_list}
+
+\chapter{Front-end Prototype} \label{ch4}
+\input{sources/4_font_end}
+
+\chapter{Prototype to Deployment} \label{ch5}
+\input{sources/5_deployment}
+
+\section{Technical Decisions} \label{ch6}
+\input{sources/6_technical-decisions}
+
+\chapter{System Architecture} \label{ch7}
+\input{sources/system_architecture}
+
+\chapter{Backend Database Design} \label{ch8}
+\input{sources/8_backend_database}
+
+\chapter{API Documentation} \label{ch9}
+\input{sources/9_API_design}
+
+\chapter{Function Description} \label{ch10}
+\input{sources/10_function_des}
+
+\chapter{Deployment Instruction} \label{ch11}
+\input{sources/11_Instruction}
+
+\chapter{Discussion \& Conclusion} \label{ch12}
+\input{sources/12_conclusion}
+
+\bibliographystyle{ieeetr}
+\bibliography{bibliography}
+
+%-------------------------------
+% Appendices
+%-------------------------------
+\appendix
+\input{sources/7_appendix}
+
+\end{document}

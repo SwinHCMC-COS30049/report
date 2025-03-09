@@ -1,0 +1,138 @@
+\subsection{Front-end Technology Choices}
+
+\subsubsection{Next.js}
+Our front-end stack is built with Next.js, offering:
+\begin{itemize}
+    \item \textbf{Server-side Rendering:} Enhances SEO and initial page load performance
+    \item \textbf{Static Generation:} Enables pre-rendering of static content
+    \item \textbf{Advanced Routing:} Simplifies navigation with built-in file-based routing
+    \item \textbf{App Directory:} Leverages new features like layouts and metadata management
+\end{itemize}
+
+\subsubsection{React \& TypeScript}
+The combination of React and TypeScript provides:
+\begin{itemize}
+    \item \textbf{Component Architecture:} Modular, reusable UI components
+    \item \textbf{Type Safety:} Robust type checking reducing runtime errors
+    \item \textbf{Developer Tools:} Enhanced IDE support and code navigation
+    \item \textbf{Code Maintainability:} Clear interfaces and improved documentation
+\end{itemize}
+
+\subsubsection{Tailwind CSS}
+For styling, we chose Tailwind CSS because it offers:
+\begin{itemize}
+    \item \textbf{Utility-First Approach:} Rapid UI development with pre-built classes
+    \item \textbf{Customization:} Flexible design tokens and CSS variables
+    \item \textbf{Performance:} Built-in purging of unused styles
+    \item \textbf{Consistency:} Standardized design system across components
+\end{itemize}
+
+\subsubsection{API Typesafety}
+
+We use OpenAPI TypeScript code generation for API type safety:
+\begin{itemize}
+    \item \textbf{OpenAPI TypeScript Generation:} Using openapi-typescript to generate types from our backend Swagger documentation
+    \item \textbf{Automated Type Updates:} Script "typegen" runs with tsx to regenerate types when API changes
+    \item \textbf{Type Integration:} Generated types are imported and used throughout the frontend codebase
+    \item \textbf{End-to-end Type Safety:} Ensures API requests and responses match backend specifications
+\end{itemize}
+
+The process involves:
+\begin{itemize}
+    \item \textbf{Step 1:} Running "typegen" script that fetches OpenAPI schema from backend
+    \item \textbf{Step 2:} Converting schema to TypeScript interfaces automatically
+    \item \textbf{Step 3:} Using generated types in API calls and components
+\end{itemize}
+
+\subsubsection{Code Organization}
+Our project structure follows modular principles:
+\begin{itemize}
+    \item \textbf{API Types:} Centralized type definitions
+    \item \textbf{Components:} Reusable UI building blocks
+    \item \textbf{Pages:} Route-based component organization. We use app router for routing.
+    \item \textbf{Utils:} Shared utilities and helper functions
+\end{itemize}
+
+
+\subsection{Wallet Node Graphs}
+
+Challenge: since the database is relational, it is nigh impossible to fetch all the wallet nodes and their relationships in one go. The API must be queried multiple times to fetch the neighbors of a wallet node, and the graph must be dynamically updated to reflect these changes.
+Our solution involves fetching the neighbors of a wallet node on demand and updating the graph accordingly. The nodes are fetched one step at a time (meaning that clicking on a node will fetch its neighbors, but not neighbors of neighbors). This approach ensures that the graph remains manageable and does not overload the system with too many nodes.
+
+\subsubsection{Mechanism Overview}
+The component \texttt{SectionWalletNeighbors} serves as the entry point for displaying a graph of wallet nodes. It begins by creating a base node for the source wallet and then fetches its neighbor wallets from the API. The following technical aspects are notable:
+
+\begin{itemize}
+    \item \textbf{ReactFlow Integration:} The component leverages \texttt{ReactFlow} to render nodes and edges. It uses hooks like \texttt{useNodesState} and \texttt{useEdgesState} to manage state dynamically.
+    \item \textbf{Event Handling:} Interaction is enabled via event handlers:
+    \begin{itemize}
+        \item \texttt{onNodeClick}: Opens a context menu for a wallet node.
+        \item \texttt{onNodeRightClick}: Manages node removal or selection based on hierarchical level.
+        \item \texttt{onPaneClick} and \texttt{onPaneRightClick}: Handle interactions with the background to open/close the context menu.
+    \end{itemize}
+    \item \textbf{API Integration:} On mounting, the component fetches neighbor data using the wallet address. The fetched data are transformed into nodes and corresponding edges, thereby expanding the graph.
+    \item \textbf{Tech Stack Benefits:} 
+    \begin{itemize}
+        \item \textbf{Next.js \& React:} Provide server-side rendering and a component-based architecture.
+        \item \textbf{TypeScript:} Ensures strong typing for wallet data and node properties, thus reducing runtime errors.
+        \item \textbf{Tailwind CSS:} Enables rapid styling and consistency across the UI.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Dynamic Graph Updates}
+The mechanism for updating the graph includes:
+\begin{itemize}
+    \item Initializing nodes with a unique identifier format (e.g., \texttt{wallet.address-1}).
+    \item Using the \texttt{useEffect} hook to trigger API calls on level changes.
+    \item Dynamically computing positions for new nodes based on the level and index, ensuring a spaced-out graph layout.
+    \item Managing state transitions such as adding or removing nodes and edges based on user interactions.
+\end{itemize}
+
+\subsection{Transaction Tables}
+Fetching transactions data from the API endpoint posed a challenge due to the need for pagination and filtering. The API returns a large dataset, which must be paginated to ensure efficient rendering and user experience. Additionally, the transactions data must be filterable by transaction hash and destination address. Implementing these features required careful consideration of the data fetching mechanism and state management.
+
+\subsubsection{Data Fetching and State Management}
+The transactions table is implemented using \texttt{@tanstack/react-table} for efficient table state management. The component:
+\begin{itemize}
+    \item Manages pagination and filtering using React state hooks (\texttt{useState}). The pagination state (page index and size) is maintained and updated as users navigate the table.
+    \item Utilizes a \texttt{useEffect} hook to fetch transactions from an API endpoint whenever the pagination state or filters change.
+    \item Constructs a dynamic query by combining pagination parameters and optional filter queries (such as transaction hash and destination address).
+\end{itemize}
+
+\subsubsection{Table Presentation and Styling}
+\begin{itemize}
+    \item \textbf{React Table:} Uses \texttt{useReactTable} from \texttt{@tanstack/react-table} to generate and manage table data. Manual pagination and row models are configured to ensure the table reacts appropriately to data changes.
+    \item \textbf{UI Components:} Custom UI components (e.g., \texttt{Table}, \texttt{TableRow}, \texttt{TableCell}) and Tailwind CSS classes deliver a uniform look and feel.
+    \item \textbf{Dropdown Menus and Icons:} Implements dropdown menus and buttons (using icons from \texttt{lucide-react}) to enable search and sorting functionalities.
+\end{itemize}
+
+\subsubsection{Interactivity}
+User interactions in the transactions table include:
+\begin{itemize}
+    \item \textbf{Filtering:} Users can search by transaction hash or destination address. When a filter is applied, the component updates the state and re-fetches data accordingly.
+    \item \textbf{Sorting:} Users can toggle the sort order for transactions based on the creation timestamp. The sort order is managed in the component state and is reflected by changing sort icons.
+    \item \textbf{Refreshing:} A refresh button next to filter inputs allows users to clear specific filters and update the displayed data.
+\end{itemize}
+
+
+\subsection{Shortcomings and Future Improvements}
+
+
+
+\subsubsection{Limited error handling for API requests}
+
+The application lacks comprehensive error handling for API requests, which can result in unexpected behavior or crashes when the API returns an error response. Implementing error handling mechanisms, such as displaying error messages to users or logging errors for debugging, would enhance the application's robustness and user experience.
+
+\subsubsection{Improving filtering on wallet nodes graph}
+
+As of now, it is not possible to filter wallet nodes based on specific criteria (e.g., wallet address). Implementing advanced filtering options would enable users to focus on specific subsets of wallet nodes, providing more insights into transaction patterns and network interactions.
+
+\subsubsection{Clickable link between wallet nodes}
+
+The wallet nodes graph currently lacks the ability to click on a link between two wallet nodes to view transaction details. Implementing this feature would allow users to explore transaction details directly from the graph, enhancing the interactive experience and providing more context on wallet interactions.
+This could be combined with the URL states enhancement for the best UX.
+
+\subsubsection{Tables does not use URL states for pagination and filtering}
+
+The transactions table component does not utilize URL states to store pagination and filtering parameters. Storing these parameters in the URL would allow users to bookmark or share specific table views, improving usability and navigation. Implementing URL state management for tables would involve updating the URL query parameters based on user interactions (e.g., page changes, filter inputs) and syncing the table state with the URL parameters on component mount.
+By URL states, we mean that the pagination and filtering parameters are stored in the URL query parameters. For example, the URL could look like \texttt{http://example.com/transactions?page=2\&filter=hash:abc123}, where \texttt{page} and \texttt{filter} are query parameters that store the pagination and filtering settings, respectively.
